@@ -152,8 +152,8 @@ en:
   generate_thingtweet_arduino_code: "Generate ThingTweet Arduino Code"
   get_started: "Get Started Now"
   height: "Height"
-  home_motto: "Billions and Billions."
-  home_tagline: "The open data platform for the Internet of Things."
+  home_motto: "物联网云平台"
+  home_tagline: "清华大学物联网研究中心"
   hour: 'hour'
   import: "Import"
   latitude: "Latitude"
