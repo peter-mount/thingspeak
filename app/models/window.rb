@@ -38,7 +38,7 @@ class Window < ActiveRecord::Base
     window.name = plugin.name
     window.private_flag = (privacy_flag == :private)
     window.channel = Channel.find(channel_id)
-    window.html ="<iframe width=\"450\" height=\"260\" style=\"border: 1px solid #cccccc;\" src=\"/plugins/#{plugin.id}\" ></iframe><iframe width=\"450\" height=\"260\" style=\"border: 1px solid #cccccc;\" src=\"/plugins/#{plugin.id}\" ></iframe>"
+    window.html ="<iframe width=\"450\" height=\"260\" style=\"border: 1px solid #cccccc;\" src=\"/plugins/#{plugin.id}\" ></iframe>"
     window.show_flag = false
     window if window.save
   end

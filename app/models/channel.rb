@@ -300,6 +300,8 @@ class Channel < ActiveRecord::Base
       if self.send("#{field_name}").present?
         update_chart_window(field_name, true)
         update_chart_window(field_name, false)
+        update_metric_window(field_name, true)
+        update_metric_window(field_name, false)
       end
     end
 
@@ -539,6 +541,31 @@ class Channel < ActiveRecord::Base
       self.windows.push window
       # set the html
       window.html = "<iframe id=\"iframe#{window.id}\" width=\"450\" height=\"260\" style=\"border: 1px solid #cccccc;\" src=\"/channels/#{self.id}/charts/#{field_number.to_s}?width=450&height=260::OPTIONS::\" ></iframe>"
+
+      # save the window, and raise an exception if it fails
+      if !window.save
+        raise "The Window could not be saved"
+      end
+    end
+
+    def update_metric_window(field_name, private_flag)
+      field_number = field_name.last.to_i
+
+      # get the chart window
+      window = self.windows.where(window_type: 'chart', content_id: field_number, private_flag: private_flag).first
+
+      # if there is no chart window for this field, add a default one
+      if window.blank?
+        window = Window.new(window_type: 'chart', position: 0, col: 0, title: 'window_field_chart',
+          name: field_name, content_id: field_number, private_flag: private_flag)
+      end
+
+      # set the options if they don't already exist
+      window.options ||= "&results=60&dynamic=true"
+      # associate the window with the channel
+      self.windows.push window
+      # set the html
+      window.html = "<iframe id=\"iframe#{window.id}\" width=\"450\" height=\"260\" style=\"border: 1px solid #000000;\" src=\"/channels/#{self.id}/charts/#{field_number.to_s}?width=450&height=260::OPTIONS::\" ></iframe>"
 
       # save the window, and raise an exception if it fails
       if !window.save
