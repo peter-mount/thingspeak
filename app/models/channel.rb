@@ -300,6 +300,7 @@ class Channel < ActiveRecord::Base
       if self.send("#{field_name}").present?
         update_chart_window(field_name, true)
         update_chart_window(field_name, false)
+        
         update_metric_window(field_name, true)
         update_metric_window(field_name, false)
       end
@@ -549,14 +550,14 @@ class Channel < ActiveRecord::Base
     end
 
     def update_metric_window(field_name, private_flag)
-      field_number = field_name.last.to_i
+      field_number = field_name.last.to_i # get the lastest modified field name
 
       # get the chart window
-      window = self.windows.where(window_type: 'chart', content_id: field_number, private_flag: private_flag).first
+      window = self.windows.where(window_type: 'metric', content_id: field_number, private_flag: private_flag).first
 
       # if there is no chart window for this field, add a default one
       if window.blank?
-        window = Window.new(window_type: 'chart', position: 0, col: 0, title: 'window_field_chart',
+        window = Window.new(window_type: 'metric', position: 0, col: 0, title: 'window_field_chart',
           name: field_name, content_id: field_number, private_flag: private_flag)
       end
 

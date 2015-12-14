@@ -52,6 +52,8 @@ class Window < ActiveRecord::Base
     # else if this is a chart
     elsif window_type == "chart"
       self.title = I18n.t(title, {:field_number => content_id})
+    elsif window_type == "metric"
+      self.title = I18n.t(title, {:field_number => content_id})
     # else set title for other window types, for example: I18n.t('window_map') = 'Channel Location'
     else
       self.title = I18n.t(title)
@@ -61,6 +63,11 @@ class Window < ActiveRecord::Base
   # set the html for display to user; don't save after calling this method
   def set_html_for_display!
     if window_type == "chart"
+      html_options = options || ''
+      # replace '::OPTIONS::' if present
+      self.html['::OPTIONS::'] = html_options if html.present? && html.index("::OPTIONS::").present?
+    end
+    if window_type == "metric"
       html_options = options || ''
       # replace '::OPTIONS::' if present
       self.html['::OPTIONS::'] = html_options if html.present? && html.index("::OPTIONS::").present?
