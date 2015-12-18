@@ -7,18 +7,12 @@
     <script src="../../assets/javascripts/raphael-2.1.4.min.js"></script>
     <script src="../../assets/javascripts/justgage-1.1.0.min.js"></script>
     <script>
-        $(document).on('page:load ready', function(){
-            var gg1 = new JustGage({
-                id: "gg1",
-                value: 50,
-                min: 0,
-                max: 60,
-                donut: true,
-                gaugeWidthScale: 0.6,
-                counter: true
-            });
-            var dynamicChart = new Highcharts.Chart();
-        });
+        $(document).on('page:load ready', function() {
+        // if chrome/safari error occurs, reload page
+        if ($('#title0').val() == '60' && $('#color0').val() == '10') {
+          window.location.reload();
+    }
+  });
     </script>
 
     <%= javascript_include_tag 'application' %>
