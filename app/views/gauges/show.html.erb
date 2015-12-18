@@ -6,7 +6,31 @@
     <script type="text/javascript" src="//thingspeak.com/exporting.js"></script>
     <script src="../../assets/javascripts/raphael-2.1.4.min.js"></script>
     <script src="../../assets/javascripts/justgage-1.1.0.min.js"></script>
-    
+    <script src="../../assets/javascripts/gauge.min.js"></script>
+    <script>
+        $(document).on('page:load ready', function(){
+            var opts = {
+              lines: 12, // The number of lines to draw
+              angle: 0.15, // The length of each line
+              lineWidth: 0.44, // The line thickness
+              pointer: {
+                length: 0.9, // The radius of the inner circle
+                strokeWidth: 0.035, // The rotation offset
+                color: '#000000' // Fill color
+              },
+              limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
+              colorStart: '#6FADCF',   // Colors
+              colorStop: '#8FC0DA',    // just experiment with them
+              strokeColor: '#E0E0E0',   // to see which ones work best for you
+              generateGradient: true
+            };
+            var target = document.getElementById('foo'); // your canvas element
+            var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+            gauge.maxValue = 3000; // set max gauge value
+            gauge.animationSpeed = 32; // set animation speed (32 is default value)
+            gauge.set(1250); // set actual value
+        });
+    </script>
 
     <%= javascript_include_tag 'application' %>
 
@@ -15,18 +39,5 @@
   <div id="chart-container" style="<%= @width_style %> <%= @height_style %> display: block; position:absolute; bottom:0; top:0; left:0; right:0; margin: 5px 15px 15px 0; overflow: hidden;">
     <%= image_tag 'ajax-loader.gif', :style => "position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0;" %>
   </div>
-  <script>
-        $(document).on('page:load ready', function(){
-            var gg1 = new JustGage({
-                id: "gg1",
-                value: 50,
-                min: 0,
-                max: 60,
-                donut: true,
-                gaugeWidthScale: 0.6,
-                counter: true
-            });
-        });
-    </script>
 </body>
 </html>
