@@ -24,11 +24,21 @@
               strokeColor: '#E0E0E0',   // to see which ones work best for you
               generateGradient: true
             };
-            var target = document.getElementById('foo'); // your canvas element
-            var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-            gauge.maxValue = 3000; // set max gauge value
-            gauge.animationSpeed = 32; // set animation speed (32 is default value)
-            gauge.set(1250); // set actual value
+            $.fn.gauge = function(opts) {
+              this.each(function() {
+                var $this = $(this),
+                    data = $this.data();
+
+                if (data.gauge) {
+                  data.gauge.stop();
+                  delete data.gauge;
+                }
+                if (opts !== false) {
+                  data.gauge = new Gauge(this).setOptions(opts);
+                }
+              });
+              return this;
+            };
         });
     </script>
 
