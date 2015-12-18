@@ -1,25 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
 <html style="height: 100%;">
 
 <head>
     <script src="../../assets/javascripts/raphael-2.1.4.min.js"></script>
     <script src="../../assets/javascripts/justgage-1.1.0.min.js"></script>
-
-    <%= javascript_include_tag 'application' %>
-
     <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var gg1 = new JustGage({
+            id: "gg1",
+            value: 50,
+            min: 0,
+            max: 60,
+            donut: true,
+            gaugeWidthScale: 0.6,
+            counter: true
+        });
 
-    document.getElementById('gg1_refresh').addEventListener('click', function() {
+        document.getElementById('gg1_refresh').addEventListener('click', function() {
             gg1.refresh(getRandomInt(0, 60));
+        });
     });
-
     </script>
 </head>
 
-<body style='height: 100%; margin: 0; padding: 0;'>
+<body>
     <!-- <div class="container"> -->
     <div>
-<!--         <div id="gg1" class="gauge" stype="display: block; position:absolute; bottom:0; top:0; left:0; right:0; margin: 5px 15px 15px 0; overflow: hidden;"></div> -->
+        <div id="gg1" class="gauge" stype="display: block; position:absolute; bottom:0; top:0; left:0; right:0; margin: 5px 15px 15px 0; overflow: hidden;"></div>
         <a href="#" id="gg1_refresh">Random Refresh</a>
     </div>
 </body>
