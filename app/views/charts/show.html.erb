@@ -42,7 +42,7 @@
                // add location if possible
                if (this.location) { p.name = this.location; }
                // if a numerical value exists add it
-               if (!isNaN(parseInt(v))<% if params[:max].present? && Feed.numeric?(params[:max]) %> && p.y <= <%= params[:max] %><% end %><% if params[:min].present? && Feed.numeric?(params[:max]) %> && p.y >= <%= params[:min] %><% end %>) { chartData.push(p); }
+               if (!isNaN(parseInt(v))<% if params[:max].present? && Feed.numeric?(params[:max]) %> && p.y <= <%= params[:max] %><% end %><% if params[:min].present? && Feed.numeric?(params[:min]) %> && p.y >= <%= params[:min] %><% end %>) { chartData.push(p); }
             });
 
             // specify the chart options
@@ -101,6 +101,8 @@
                             else {
                               dynamicChart.series[0].data[dynamicChart.series[0].data.length-1].update(p);
                             }
+
+                            // add my metric code here.
                         }
                       });
 
@@ -166,8 +168,8 @@
             { name: data.channel.field<%= params[:id] %> }
           ],
           credits: {
-              text: 'ThingSpeak.com',
-              href: 'https://thingspeak.com/',
+              text: '易智云仪表',
+              href: 'http://101.6.215.9/',
               style: { color: '#D62020' }
           }
         };
