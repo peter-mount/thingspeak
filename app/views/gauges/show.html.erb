@@ -1,38 +1,7 @@
 <!doctype html>
-<html>
+<html style="height: 100%;">
 
 <head>
-    <meta charset="utf-8" />
-    <title>Counter</title>
-    <meta name="viewport" content="width=device-width">
-    <style>
-    .container {
-        width: 450px;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    .gauge {
-        width: 450px;
-        height: 450px;
-    }
-
-    a:link.button,
-    a:active.button,
-    a:visited.button,
-    a:hover.button {
-        margin: 30px 5px 0 2px;
-        padding: 7px 13px;
-    }
-    </style>
-</head>
-
-<body>
-    <!-- <div class="container"> -->
-    <div>
-        <div id="gg1" class="gauge"></div>
-        <a href="#" id="gg1_refresh">Random Refresh</a>
-    </div>
     <script src="../../assets/javascripts/raphael-2.1.4.min.js"></script>
     <script src="../../assets/javascripts/justgage-1.1.0.min.js"></script>
     <script>
@@ -52,6 +21,14 @@
         });
     });
     </script>
+</head>
+
+<body>
+    <!-- <div class="container"> -->
+    <div>
+        <div id="gg1" class="gauge" stype="display: block; position:absolute; bottom:0; top:0; left:0; right:0; margin: 5px 15px 15px 0; overflow: hidden;"></div>
+        <a href="#" id="gg1_refresh">Random Refresh</a>
+    </div>
 </body>
 
 </html>
