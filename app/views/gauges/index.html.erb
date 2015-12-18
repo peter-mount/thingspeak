@@ -8,24 +8,25 @@
     <%= javascript_include_tag 'application' %>
 
     <script type="text/javascript">
-    $(document).on('page:load ready', function() {
-        var gg1 = new JustGage({
-            id: "gg1",
-            value: 50,
-            min: 0,
-            max: 60,
-            donut: true,
-            gaugeWidthScale: 0.6,
-            counter: true
-        });
-    });
+    // $(document).on('page:load ready', function() {
+    //     var gg1 = new JustGage({
+    //         id: "gg1",
+    //         value: 50,
+    //         min: 0,
+    //         max: 60,
+    //         donut: true,
+    //         gaugeWidthScale: 0.6,
+    //         counter: true
+    //     });
+    // });
+
     </script>
 </head>
 
 <body style='background-color: <%= params[:bgcolor] ? params[:bgcolor] : 'white' %>; height: 100%; margin: 0; padding: 0;'>
     <!-- <div class="container"> -->
     <div>
-        <div id="gg1" class="gauge" stype="display: block; position:absolute; bottom:0; top:0; left:0; right:0; margin: 5px 15px 15px 0; overflow: hidden;"></div>
+<!--         <div id="gg1" class="gauge" stype="display: block; position:absolute; bottom:0; top:0; left:0; right:0; margin: 5px 15px 15px 0; overflow: hidden;"></div> -->
         <p>I am here!</p>
     </div>
 </body>
