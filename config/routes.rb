@@ -98,6 +98,7 @@ Thingspeak::Application.routes.draw do
     resources :status
     resources :statuses, :to => 'status'
     resources :charts
+    resources :gauges
     resources :maps
     resources :channels
     resources :tags
