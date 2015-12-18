@@ -8,7 +8,7 @@
     <%= javascript_include_tag 'application' %>
 
     <script type="text/javascript">
-    $(document).addEventListener("DOMContentLoaded", function(event) {
+    $(document).on('page:load ready', function(event) {
         var gg1 = new JustGage({
             id: "gg1",
             value: 50,
@@ -19,7 +19,7 @@
             counter: true
         });
 
-        $(document).getElementById('gg1_refresh').addEventListener('click', function() {
+        $(document).on('click', '.gg1_refresh' ,function() {
             gg1.refresh(getRandomInt(0, 60));
         });
     });
