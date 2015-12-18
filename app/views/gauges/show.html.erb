@@ -1,34 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html style="height: 100%;">
-
-<head>
+  <head>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//thingspeak.com/highcharts-3.0.8.js"></script>
+    <script type="text/javascript" src="//thingspeak.com/exporting.js"></script>
     <script src="../../assets/javascripts/raphael-2.1.4.min.js"></script>
     <script src="../../assets/javascripts/justgage-1.1.0.min.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-        var gg1 = new JustGage({
-            id: "gg1",
-            value: 50,
-            min: 0,
-            max: 60,
-            donut: true,
-            gaugeWidthScale: 0.6,
-            counter: true
+        $(document).on('page:load ready', function(){
+            var gg1 = new JustGage({
+                id: "gg1",
+                value: 50,
+                min: 0,
+                max: 60,
+                donut: true,
+                gaugeWidthScale: 0.6,
+                counter: true
+            });
         });
-
-        document.getElementById('gg1_refresh').addEventListener('click', function() {
-            gg1.refresh(getRandomInt(0, 60));
-        });
-    });
     </script>
+
+    <%= javascript_include_tag 'application' %>
+
 </head>
-
-<body>
-    <!-- <div class="container"> -->
-    <div>
-        <div id="gg1" class="gauge" stype="display: block; position:absolute; bottom:0; top:0; left:0; right:0; margin: 5px 15px 15px 0; overflow: hidden;"></div>
-        <a href="#" id="gg1_refresh">Random Refresh</a>
-    </div>
+<body style='background-color: <%= params[:bgcolor] ? params[:bgcolor] : 'white' %>; height: 100%; margin: 0; padding: 0;'>
+  <div id="chart-container" style="<%= @width_style %> <%= @height_style %> display: block; position:absolute; bottom:0; top:0; left:0; right:0; margin: 5px 15px 15px 0; overflow: hidden;">
+    <%= image_tag 'ajax-loader.gif', :style => "position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0;" %>
+  </div>
 </body>
-
 </html>
