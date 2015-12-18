@@ -24,10 +24,6 @@ class GaugesController < ApplicationController
 	      @qs += "&#{p[0]}=#{p[1]}" if feed_params.include?(p[0])
 	    end
 
-	    # fix chart colors if necessary
-	    params[:color] = fix_color(params[:color])
-	    params[:bgcolor] = fix_color(params[:bgcolor])
-
 	    # set ssl
 	    ssl = (get_header_value('x_ssl') == 'true')
 	    @domain = domain(ssl)
