@@ -63,6 +63,19 @@
                 return this.series.name + ':<b>' + this.y + '</b>' + n + '<br/>' + d.toDateString() + '<br/>' + d.toTimeString().replace(/\(.*\)/, "");
                   }
               },
+              xAxis: {
+                  type: 'datetime',
+                  title: {
+                text: 'test'
+                  }
+              },
+              yAxis: {
+                title: {
+                  text: ''
+                },
+                min: <%= params[:yaxismin].present? ? params[:yaxismin] : 'null '%>,
+                max: <%= params[:yaxismax].present? ? params[:yaxismax] : 'null' %>
+              },
               exporting: {
                   enabled: <%= (params[:export].present? && params[:export] == 'true') ? 'true' : 'false' %>
               },
