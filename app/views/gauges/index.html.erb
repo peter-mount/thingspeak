@@ -2,30 +2,128 @@
 <html style="height: 100%;">
   <head>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="//thingspeak.com/highcharts-3.0.8.js"></script>
     <script type="text/javascript" src="//thingspeak.com/exporting.js"></script>
-    <script src="../../assets/javascripts/raphael-2.1.4.min.js"></script>
-    <script src="../../assets/javascripts/justgage-1.1.0.min.js"></script>
+    <script type="text/javascript" src="../../assets/javascripts/bower/highcharts"></script>
     <script>
-        $(document).on('page:load ready', function(){
-            var gg1 = new JustGage({
-                id: "gg1",
-                value: 50,
-                min: 0,
-                max: 60,
-                donut: true,
-                gaugeWidthScale: 0.6,
-                counter: true
+        $(function () {
+
+                $('#container').highcharts({
+
+                    chart: {
+                        type: 'gauge',
+                        plotBackgroundColor: null,
+                        plotBackgroundImage: null,
+                        plotBorderWidth: 0,
+                        plotShadow: false
+                    },
+
+                    title: {
+                        text: 'Speedometer'
+                    },
+
+                    pane: {
+                        startAngle: -150,
+                        endAngle: 150,
+                        background: [{
+                            backgroundColor: {
+                                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                stops: [
+                                    [0, '#FFF'],
+                                    [1, '#333']
+                                ]
+                            },
+                            borderWidth: 0,
+                            outerRadius: '109%'
+                        }, {
+                            backgroundColor: {
+                                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                                stops: [
+                                    [0, '#333'],
+                                    [1, '#FFF']
+                                ]
+                            },
+                            borderWidth: 1,
+                            outerRadius: '107%'
+                        }, {
+                            // default background
+                        }, {
+                            backgroundColor: '#DDD',
+                            borderWidth: 0,
+                            outerRadius: '105%',
+                            innerRadius: '103%'
+                        }]
+                    },
+
+                    // the value axis
+                    yAxis: {
+                        min: 0,
+                        max: 200,
+
+                        minorTickInterval: 'auto',
+                        minorTickWidth: 1,
+                        minorTickLength: 10,
+                        minorTickPosition: 'inside',
+                        minorTickColor: '#666',
+
+                        tickPixelInterval: 30,
+                        tickWidth: 2,
+                        tickPosition: 'inside',
+                        tickLength: 10,
+                        tickColor: '#666',
+                        labels: {
+                            step: 2,
+                            rotation: 'auto'
+                        },
+                        title: {
+                            text: 'km/h'
+                        },
+                        plotBands: [{
+                            from: 0,
+                            to: 120,
+                            color: '#55BF3B' // green
+                        }, {
+                            from: 120,
+                            to: 160,
+                            color: '#DDDF0D' // yellow
+                        }, {
+                            from: 160,
+                            to: 200,
+                            color: '#DF5353' // red
+                        }]
+                    },
+
+                    series: [{
+                        name: 'Speed',
+                        data: [80],
+                        tooltip: {
+                            valueSuffix: ' km/h'
+                        }
+                    }]
+
+                },
+                // Add some life
+                function (chart) {
+                    if (!chart.renderer.forExport) {
+                        setInterval(function () {
+                            var point = chart.series[0].points[0],
+                                newVal,
+                                inc = Math.round((Math.random() - 0.5) * 20);
+
+                            newVal = point.y + inc;
+                            if (newVal < 0 || newVal > 200) {
+                                newVal = point.y - inc;
+                            }
+
+                            point.update(newVal);
+
+                        }, 3000);
+                    }
+                });
             });
-        });
     </script>
 
-    <%= javascript_include_tag 'application' %>
-
 </head>
-<body style='background-color: <%= params[:bgcolor] ? params[:bgcolor] : 'white' %>; height: 100%; margin: 0; padding: 0;'>
-  <div id="chart-container" style="<%= @width_style %> <%= @height_style %> display: block; position:absolute; bottom:0; top:0; left:0; right:0; margin: 5px 15px 15px 0; overflow: hidden;">
-    <%= image_tag 'ajax-loader.gif', :style => "position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0;" %>
-  </div>
+<body>
+  <div id="container" style="width:100%; height:400px;"></div>
 </body>
 </html>
