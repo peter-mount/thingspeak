@@ -9,36 +9,89 @@
     <script src="../../assets/javascripts/gauge.min.js"></script>
     <script>
         $(document).on('page:load ready', function(){
-            var opts = {
-              lines: 12, // The number of lines to draw
-              angle: 0.15, // The length of each line
-              lineWidth: 0.44, // The line thickness
-              pointer: {
-                length: 0.9, // The radius of the inner circle
-                strokeWidth: 0.035, // The rotation offset
-                color: '#000000' // Fill color
+            var chartOptions = {
+              chart: {
+                renderTo: 'chart-container',
+                defaultSeriesType: '<%= params[:type] ? "#{params[:type]}" : "line" %>',
+                backgroundColor: '<%= params[:bgcolor] || "#ffffff" %>',
+                events: {
+                  
+              }
+          },
+          title: {
+              text: ''
+          },
+          plotOptions: {
+            line: {
+              color: '<%= params[:color] || "#d62020" %>'
+            },
+            bar: {
+              color: '<%= params[:color] || "#d62020" %>'
+            },
+            column: {
+              color: '<%= params[:color] || "#d62020" %>'
+            },
+            spline: {
+              color: '<%= params[:color] || "#d62020" %>'
+            },
+            series: {
+              marker: {
+                radius: 3
               },
-              limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
-              colorStart: '#6FADCF',   // Colors
-              colorStop: '#8FC0DA',    // just experiment with them
-              strokeColor: '#E0E0E0',   // to see which ones work best for you
-              generateGradient: true
-            };
-            $.fn.gauge = function(opts) {
-              this.each(function() {
-                var $this = $(this),
-                    data = $this.data();
+              animation: true,
+              step: <%= params[:step] || 'false' %>,
+              borderWidth: 0,
+              turboThreshold: 0
+            }
+          },
+          tooltip: {
+              // reformat the tooltips so that local times are displayed
+              formatter: function() {
+            var d = new Date(this.x + (myOffset*60000));
+            var n = (this.point.name === undefined) ? '' : '<br/>' + this.point.name;
+            return this.series.name + ':<b>' + this.y + '</b>' + n + '<br/>' + d.toDateString() + '<br/>' + d.toTimeString().replace(/\(.*\)/, "");
+              }
+          },
+          xAxis: {
+              type: 'datetime',
+              title: {
+            text: 'test'
+              }
+          },
+          yAxis: {
+            title: {
+              text: ''
+            },
+            min: <%= params[:yaxismin].present? ? params[:yaxismin] : 'null '%>,
+            max: <%= params[:yaxismax].present? ? params[:yaxismax] : 'null' %>
+          },
+          exporting: {
+              enabled: <%= (params[:export].present? && params[:export] == 'true') ? 'true' : 'false' %>
+          },
+          legend: {
+              enabled: false
+          },
+          series: [
+            { name: data.channel.field<%= params[:id] %> }
+          ],
+          credits: {
+              text: '易智云仪表',
+              href: 'http://101.6.215.9/',
+              style: { color: '#D62020' }
+          }
+        };
 
-                if (data.gauge) {
-                  data.gauge.stop();
-                  delete data.gauge;
-                }
-                if (opts !== false) {
-                  data.gauge = new Gauge(this).setOptions(opts);
-                }
-              });
-              return this;
-            };
+            // add the data to the chart
+            chartOptions.series[0].data = chartData;
+
+            // set chart labels here so that decoding occurs properly
+            chartOptions.title.text = <% if params[:title] %>decodeURIComponent('<%= u(params[:title]) %>')<% else %>data.channel.name<% end %>;
+            chartOptions.xAxis.title.text = <% if params[:xaxis] %>decodeURIComponent('<%= u(params[:xaxis]) %>')<% else %>'Date'<% end %>;
+            chartOptions.yAxis.title.text = <% if params[:yaxis] %>decodeURIComponent('<%= u(params[:yaxis]) %>')<% else %><%= "data.channel.field#{params[:id]}" %><% end %>;
+
+            // draw the chart
+            var dynamicChart = new Highcharts.Chart(chartOptions);
+              
         });
     </script>
 
