@@ -1,14 +1,51 @@
 <!DOCTYPE html>
 <html style="height: 100%;">
   <head>
-    <script type="text/javascript" src="../../assets/javascripts/jquery.min.js"></script>
-    <script type="text/javascript" src="../../assets/javascripts/highcharts-3.0.8.js"></script>
-    <script type="text/javascript" src="../../assets/javascripts/exporting.js"></script>
-    <script src="../../assets/javascripts/raphael-2.1.4.min.js"></script>
-    <script src="../../assets/javascripts/justgage-1.1.0.min.js"></script>
-    <script src="../../assets/javascripts/gauge.min.js"></script>
-    <script>
-        $(document).on('page:load ready', function(){
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//thingspeak.com/highcharts-3.0.8.js"></script>
+    <script type="text/javascript" src="//thingspeak.com/exporting.js"></script>
+
+    <%= javascript_include_tag 'application' %>
+
+      <script type="text/javascript">
+
+        // user's timezone offset
+        var myOffset = new Date().getTimezoneOffset();
+
+        // converts date format from JSON
+        function getChartDate(d) {
+          // offset in minutes is converted to milliseconds and subtracted so that chart's x-axis is correct
+          return Date.parse(d) - (myOffset * 60000);
+        }
+
+        $(document).on('page:load ready', function() {
+          // blank array for holding chart data
+          var chartData = [];
+          // variable for the local date in milliseconds
+          var localDate;
+          // variable for the last date added to the chart
+          var last_date;
+
+          // get the data with a webservice call
+          $.getJSON('<%= "#{@domain}channels/#{params[:channel_id]}/field/#{params[:id]}.json?callback=?&offset=0#{@qs}" %>', function(data) {
+
+            // if no access
+            if (data == '-1') { $('#chart-container').append('<%= t(:chart_no_access) %>'); }
+
+            // iterate through each feed
+            $.each(data.feeds, function() {
+               var p = new Highcharts.Point();
+               // set the proper values
+               var v = this.field<%= params[:id] %>;
+               p.x = getChartDate(this.created_at);
+               p.y = parseFloat(v);
+               // add location if possible
+               if (this.location) { p.name = this.location; }
+               // if a numerical value exists add it
+               if (!isNaN(parseInt(v))<% if params[:max].present? && Feed.numeric?(params[:max]) %> && p.y <= <%= params[:max] %><% end %><% if params[:min].present? && Feed.numeric?(params[:min]) %> && p.y >= <%= params[:min] %><% end %>) { chartData.push(p); }
+            });
+
+            // specify the chart options
             var chartOptions = {
               chart: {
                 renderTo: 'chart-container',
@@ -147,17 +184,22 @@
 
             // draw the chart
             var dynamicChart = new Highcharts.Chart(chartOptions);
-              
+
+        // end getJSON success
+        })
+        // chained to getjson, on error
+        .error(function() {
+          $('#chart-container').html('Invalid Channel.');
         });
-    </script>
 
-    <%= javascript_include_tag 'application' %>
+      }); // end document.ready
 
+  </script>
 </head>
 <body style='background-color: <%= params[:bgcolor] ? params[:bgcolor] : 'white' %>; height: 100%; margin: 0; padding: 0;'>
   <div id="chart-container" style="<%= @width_style %> <%= @height_style %> display: block; position:absolute; bottom:0; top:0; left:0; right:0; margin: 5px 15px 15px 0; overflow: hidden;">
-    <canvas id="foo"></canvas>
     <%= image_tag 'ajax-loader.gif', :style => "position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0;" %>
   </div>
 </body>
 </html>
+
