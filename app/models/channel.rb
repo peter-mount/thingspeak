@@ -298,11 +298,11 @@ class Channel < ActiveRecord::Base
     self.fields.each do |field_name|
       # if the field exists, update the private and public chart window
       if self.send("#{field_name}").present?
-        update_chart_window(field_name, true)
-        update_chart_window(field_name, false)
-        
         update_metric_window(field_name, true)
         update_metric_window(field_name, false)
+
+        update_chart_window(field_name, true)
+        update_chart_window(field_name, false)
       end
     end
 
@@ -566,7 +566,7 @@ class Channel < ActiveRecord::Base
       # associate the window with the channel
       self.windows.push window
       # set the html
-      window.html = "<iframe id=\"iframe#{window.id}\" width=\"450\" height=\"260\" style=\"border: 1px solid #000000;\" src=\"/channels/#{self.id}/charts/#{field_number.to_s}?width=450&height=260::OPTIONS::\" ></iframe>"
+      window.html = "<iframe id=\"iframe#{window.id}\" width=\"450\" height=\"260\" style=\"border: 1px solid #000000;\" src=\"/channels/#{self.id}/gauges/#{field_number.to_s}?width=450&height=260::OPTIONS::\" ></iframe>"
 
       # save the window, and raise an exception if it fails
       if !window.save
