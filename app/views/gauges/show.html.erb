@@ -56,11 +56,9 @@
                     plotBorderWidth: 0,
                     plotShadow: false
                     events: {
-                      load: function() {
-                        //if dynamic and no "timeslice" options are set
-                        //   GAK 02/16/2013 Let's try to add the last "average" slice if params[:average]
+                      // load: function() {
 
-                        var url = '<%= "#{@domain}channels/#{params[:channel_id]}/feed/last.json?callback=?&offset=0&location=true#{@qs}" %>' ;
+                      //   var url = '<%= "#{@domain}channels/#{params[:channel_id]}/feed/last.json?callback=?&offset=0&location=true#{@qs}" %>' ;
 
                           // push data every 15 seconds
                           // setInterval(function() {
@@ -103,7 +101,7 @@
                       //     });
 
                       // }, 15000);
-                }
+                // }
                   }
                 },
 
