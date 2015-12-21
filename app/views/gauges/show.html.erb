@@ -61,15 +61,7 @@
                         //   GAK 02/16/2013 Let's try to add the last "average" slice if params[:average]
 
                         var url = '<%= "#{@domain}channels/#{params[:channel_id]}/feed/last.json?callback=?&offset=0&location=true#{@qs}" %>' ;
-                        if ("<%= params[:average] %>".length > 0) {
-                          url = '<%= "#{@domain}channels/#{params[:channel_id]}/feed/last_average.json?callback=?&offset=0&location=true&average=#{params[:average]}#{@qs}" %>' ;
-                        } else if ("<%= params[:median] %>".length > 0) {
-                          url = '<%= "#{@domain}channels/#{params[:channel_id]}/feed/last_median.json?callback=?&offset=0&location=true&median=#{params[:median]}#{@qs}" %>' ;
-                        } else if ("<%= params[:sum] %>".length > 0) {
-                          url = '<%= "#{@domain}channels/#{params[:channel_id]}/feed/last_sum.json?callback=?&offset=0&location=true&sum=#{params[:sum]}#{@qs}" %>' ;
-                        }
 
-                        if ('true' === '<%= params[:dynamic] %>' && ('<%= params[:timescale] %>'.length < 1)) {
                           // push data every 15 seconds
                           setInterval(function() {
                             // get the data with a webservice call if we're just getting the last channel
@@ -111,7 +103,6 @@
                           });
 
                       }, 15000);
-                  }
                 }
                   }
                 },
