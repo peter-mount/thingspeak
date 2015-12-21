@@ -298,8 +298,8 @@ class Channel < ActiveRecord::Base
     self.fields.each do |field_name|
       # if the field exists, update the private and public chart window
       if self.send("#{field_name}").present?
-        update_metric_window(field_name, true)
-        update_metric_window(field_name, false)
+        # update_metric_window(field_name, true)
+        # update_metric_window(field_name, false)
 
         update_chart_window(field_name, true)
         update_chart_window(field_name, false)
