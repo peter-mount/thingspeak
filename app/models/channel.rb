@@ -308,8 +308,11 @@ class Channel < ActiveRecord::Base
 
     # remove chart windows for fields that don't exist
     chart_windows = windows.where(window_type: 'chart')
+    metric_windows = windows.where(window_type: 'metric')
     chart_windows.each do |chart_window|
       chart_window.destroy if self.send("field#{chart_window.content_id}").blank?
+    metric_windows.each do |metric_window|
+      metric_window.destroy if self.send("field#{metric_window.content_id}").blank?
     end
   end
 
@@ -561,8 +564,6 @@ class Channel < ActiveRecord::Base
           name: field_name, content_id: field_number, private_flag: private_flag)
       end
 
-      # set the options if they don't already exist
-      window.options ||= "&results=60&dynamic=true"
       # associate the window with the channel
       self.windows.push window
       # set the html
