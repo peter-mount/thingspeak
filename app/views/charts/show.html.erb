@@ -95,18 +95,18 @@
                               shift = true ;
                             }
                             // if a numerical value exists and it is a new date, add it
-                            if (!isNaN(parseInt(v)) && (p.x != last_date)<% if params[:max].present? && Feed.numeric?(params[:max]) %> && p.y <= <%= params[:max] %><% end %><% if params[:min].present? && Feed.numeric?(params[:min]) %> && p.y >= <%= params[:min] %><% end %>) {
+                            // if (!isNaN(parseInt(v)) && (p.x != last_date)<% if params[:max].present? && Feed.numeric?(params[:max]) %> && p.y <= <%= params[:max] %><% end %><% if params[:min].present? && Feed.numeric?(params[:min]) %> && p.y >= <%= params[:min] %><% end %>) {
                               dynamicChart.series[0].addPoint(p, true, shift);
-                            }
-                            else {
-                              dynamicChart.series[0].data[dynamicChart.series[0].data.length-1].update(p);
-                            }
+                            // }
+                            // else {
+                            //   dynamicChart.series[0].data[dynamicChart.series[0].data.length-1].update(p);
+                            // }
 
                             // add my metric code here.
                         }
                       });
 
-                  }, 15000);
+                  }, 5000);
               }
             }
               }
@@ -169,7 +169,7 @@
           ],
           credits: {
               text: '易智云仪表',
-              href: 'http://101.6.215.9/',
+              href: '#',
               style: { color: '#D62020' }
           }
         };
