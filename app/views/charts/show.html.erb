@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="height: 100%;">
   <head>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="//thingspeak.com/highcharts-3.0.8.js"></script>
     <script type="text/javascript" src="//thingspeak.com/exporting.js"></script>
 
@@ -95,12 +95,12 @@
                               shift = true ;
                             }
                             // if a numerical value exists and it is a new date, add it
-                            // if (!isNaN(parseInt(v)) && (p.x != last_date)<% if params[:max].present? && Feed.numeric?(params[:max]) %> && p.y <= <%= params[:max] %><% end %><% if params[:min].present? && Feed.numeric?(params[:min]) %> && p.y >= <%= params[:min] %><% end %>) {
+                            if (!isNaN(parseInt(v)) && (p.x != last_date)<% if params[:max].present? && Feed.numeric?(params[:max]) %> && p.y <= <%= params[:max] %><% end %><% if params[:min].present? && Feed.numeric?(params[:min]) %> && p.y >= <%= params[:min] %><% end %>) {
                               dynamicChart.series[0].addPoint(p, true, shift);
-                            // }
-                            // else {
-                            //   dynamicChart.series[0].data[dynamicChart.series[0].data.length-1].update(p);
-                            // }
+                            }
+                            else {
+                              dynamicChart.series[0].data[dynamicChart.series[0].data.length-1].update(p);
+                            }
 
                             // add my metric code here.
                         }

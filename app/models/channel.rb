@@ -298,8 +298,8 @@ class Channel < ActiveRecord::Base
     self.fields.each do |field_name|
       # if the field exists, update the private and public chart window
       if self.send("#{field_name}").present?
-        # update_metric_window(field_name, true)
-        # update_metric_window(field_name, false)
+        update_metric_window(field_name, true)
+        update_metric_window(field_name, false)
 
         update_chart_window(field_name, true)
         update_chart_window(field_name, false)
@@ -561,7 +561,7 @@ class Channel < ActiveRecord::Base
 
       # if there is no chart window for this field, add a default one
       if window.blank?
-        window = Window.new(window_type: 'metric', position: 0, col: 0, title: 'window_field_chart',
+        window = Window.new(window_type: 'metric', position: 0, col: 0, title: 'window_field_metric',
           name: field_name, content_id: field_number, private_flag: private_flag)
       end
 
