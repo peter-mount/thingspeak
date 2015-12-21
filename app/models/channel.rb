@@ -311,6 +311,7 @@ class Channel < ActiveRecord::Base
     metric_windows = windows.where(window_type: 'metric')
     chart_windows.each do |chart_window|
       chart_window.destroy if self.send("field#{chart_window.content_id}").blank?
+    end
     metric_windows.each do |metric_window|
       metric_window.destroy if self.send("field#{metric_window.content_id}").blank?
     end
