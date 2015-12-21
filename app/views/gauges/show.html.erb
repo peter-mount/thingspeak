@@ -50,7 +50,8 @@
               chart: {
                 renderTo: 'chart-container',
                 // defaultSeriesType: '<%= params[:type] ? "#{params[:type]}" : "line" %>',
-                defaultSeriesType: "gauge",
+                // defaultSeriesType: "gauge",
+                type: 'line',
                 backgroundColor: '<%= params[:bgcolor] || "#ffffff" %>'
               },
               title: {
