@@ -63,11 +63,11 @@
                         var url = '<%= "#{@domain}channels/#{params[:channel_id]}/feed/last.json?callback=?&offset=0&location=true#{@qs}" %>' ;
 
                           // push data every 15 seconds
-                          setInterval(function() {
-                            // get the data with a webservice call if we're just getting the last channel
-                            $.getJSON(url, function(data) {
-                              // if data exists
-                              if (data && data.field<%= params[:id] %>) {
+                          // setInterval(function() {
+                          //   // get the data with a webservice call if we're just getting the last channel
+                          //   $.getJSON(url, function(data) {
+                          //     // if data exists
+                          //     if (data && data.field<%= params[:id] %>) {
 
                                 // var p = new Highcharts.Point();
                                 // // set the proper values
@@ -99,10 +99,10 @@
                                 // }
 
                                 // add my metric code here.
-                            }
-                          });
+                      //       }
+                      //     });
 
-                      }, 15000);
+                      // }, 15000);
                 }
                   }
                 },
