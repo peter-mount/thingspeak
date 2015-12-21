@@ -2,8 +2,9 @@
 <html style="height: 100%;">
   <head>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-    <script type="text/javascript" src="//thingspeak.com/exporting.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
     <%= javascript_include_tag 'application' %>
 
@@ -50,8 +51,8 @@
               chart: {
                 renderTo: 'chart-container',
                 // defaultSeriesType: '<%= params[:type] ? "#{params[:type]}" : "line" %>',
-                // defaultSeriesType: "gauge",
-                type: 'spline',
+                Type: "gauge",
+                // type: 'spline',
                 backgroundColor: '<%= params[:bgcolor] || "#ffffff" %>'
               },
               title: {
@@ -76,9 +77,9 @@
               legend: {
                   enabled: false
               },
-              series: [
-                { name: data.channel.field<%= params[:id] %> }
-              ]
+              // series: [
+              //   { name: data.channel.field<%= params[:id] %> }
+              // ]
 
               // chart: {
               //       defaultSeriesType: 'gauge',
@@ -164,13 +165,13 @@
               //       }]
               //   },
 
-                // series: [{
-                //     name: 'Speed',
-                //     data: [80],
-                //     tooltip: {
-                //         valueSuffix: ' km/h'
-                //     }
-                // }]
+                series: [{
+                    name: 'Speed',
+                    data: [80],
+                    tooltip: {
+                        valueSuffix: ' km/h'
+                    }
+                }]
             };
 
             // add the data to the chart
