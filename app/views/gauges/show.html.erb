@@ -75,9 +75,9 @@
               legend: {
                   enabled: false
               },
-              // series: [
-              //   { name: data.channel.field<%= params[:id] %> }
-              // ]
+              series: [
+                { name: data.channel.field<%= params[:id] %> }
+              ]
 
               // chart: {
               //       defaultSeriesType: 'gauge',
@@ -163,13 +163,13 @@
               //       }]
               //   },
 
-                series: [{
-                    name: 'Speed',
-                    data: [80],
-                    tooltip: {
-                        valueSuffix: ' km/h'
-                    }
-                }]
+                // series: [{
+                //     name: 'Speed',
+                //     data: [80],
+                //     tooltip: {
+                //         valueSuffix: ' km/h'
+                //     }
+                // }]
             };
 
             // add the data to the chart
