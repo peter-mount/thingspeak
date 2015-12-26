@@ -70,6 +70,9 @@ Thingspeak::Application.routes.draw do
   get 'channels/:channel_id/feed(s)/debug' => 'feed#debug'
   delete 'channels/:id/feeds' => 'channels#clear'
 
+  # canvas
+  get 'channels/:channel_id/canvas' => 'canvas#index'
+
   # maps
   get 'channels/:channel_id/maps/channel_show' => 'maps#channel_show'
   get 'channels/:channel_id/status/recent' => 'status#recent'
