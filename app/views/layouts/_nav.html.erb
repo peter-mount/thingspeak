@@ -50,15 +50,13 @@
           <ul class="dropdown-menu">
             <li><a href="/docs"><%= t(:documentation) %></a></li>
             <li><a href="/docs/tutorials/"><%= t(:tutorials) %></a></li>
-            <li><a href="http://community.thingspeak.com/forum/"><%= t(:forum) %></a></li>
           </ul>
         </li>
-
-        <li><a href="http://community.thingspeak.com/"><%= t(:blog)%></a></li>
 
         <% if current_user %>
           <li><%= link_to t(:signout), logout_path %></li>
         <% else %>
+          <li><a href="https://area51.onl/">Area51</a></li>
           <li><%= link_to t(:signin), login_path %></li>
           <li><%= link_to t(:signup), new_user_registration_path %></li>
         <% end %>
