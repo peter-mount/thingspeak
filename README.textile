@@ -1,3 +1,9 @@
+This fork of ThingSpeak is what I'm using for my own IoT over on http://iot.onl and various other sites.
+
+Other than some cosmetic changes this is the same as the original, except we also generate a Docker image in which it's run.
+
+Full instructions are over at  https://area51.onl/Docker/ThingSpeak 
+
 h1. ThingSpeak
 
 "ThingSpeak":https://thingspeak.com is an open source "Internet of Things" application and API to store and retrieve data from things using HTTP over the Internet or via a Local Area Network. With ThingSpeak, you can create sensor logging applications, location tracking applications, and a social network of things with status updates.
