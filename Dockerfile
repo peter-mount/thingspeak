@@ -33,8 +33,14 @@ RUN apt-get update &&\
         libpq-dev &&\
     cd /opt/thingspeak &&\
     bundle install &&\
+    apt-get remove -y build-essential &&\
+    mv docker-entrypoint.sh /docker-entrypoint.sh &&\
     chmod +x /*.sh &&\
-    rm -rf /var/lib/apt/lists/*
+    rm -rf \
+	/var/lib/apt/lists/* \
+	Dockerfile \
+	.git \
+	.gitignore
 
 #EXPOSE 80
 
