@@ -23,24 +23,29 @@ ENV HTTP_PORT       80
 # Any value other than no will enable IPv6
 ENV IPV6            no
 
-COPY * /opt/thingspeak/
+WORKDIR /opt/
 
-WORKDIR /opt/thingspeak/
+COPY docker-entrypoint.sh /
 
 RUN apt-get update &&\
     apt-get install -y \
         build-essential \
+        git \
         libpq-dev &&\
-    cd /opt/thingspeak &&\
+    mkdir -p /opt &&\
+    cd /opt &&\
+    git clone https://github.com/peter-mount/thingspeak.git &&\
+    cd thingspeak &&\
     bundle install &&\
-    apt-get remove -y build-essential &&\
-    mv docker-entrypoint.sh /docker-entrypoint.sh &&\
+    apt-get remove -y build-essential git &&\
     chmod +x /*.sh &&\
     rm -rf \
 	/var/lib/apt/lists/* \
 	Dockerfile \
 	.git \
 	.gitignore
+
+WORKDIR /opt/thingspeak/
 
 #EXPOSE 80
 
